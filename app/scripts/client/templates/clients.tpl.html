@@ -1,0 +1,33 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li class="active">Clients</li>
+  <li class="pull-right"><a href="#/clients/new">Créer un client</a></li>
+</ol>
+
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="form-control" placeholder="Rechercher un client" ng-model="query">
+</div>
+
+<img src="/images/loading.gif" ng-hide="clients !== null">
+
+<table class="table table-striped" ng-show="clients">
+  <thead>
+    <tr>
+      <th><a href="" ng-click="predicate='name';reverse=!reverse">Nom</a></th>
+      <th>Contacts</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="client in clients | filter:finder(['name'], query) | orderBy:sorter(predicate):reverse">
+      <td ng-bind="client.object.name"></td>
+      <td ng-bind="client.object | list:'contacts'"></td>
+      <td style="text-align:right;">
+        <a ng-href="/#/clients/{{ client.id }}/invoices/new" class="btn btn-default">Facturer</a>
+        <a ng-href="/#/clients/{{ client.id }}" class="btn btn-default">Ouvrir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

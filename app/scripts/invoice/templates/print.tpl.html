@@ -1,0 +1,54 @@
+<section class="kud-Sender">
+  <h2 class="kud-Sender-heading"><img ng-src="{{ config.company.logo }}" /></h2>
+  <p ng-repeat="line in config.company.address | toArray" ng-bind-html="line"></p>
+</section>
+<section class="kud-Titles">
+  <p class="kud-Titles-heading">Facture n°{{ invoice.object.num }}</p>
+  <p>Date : {{ invoice.object.date | date}}</p>
+</section>
+<section class="kud-Addressee">
+  <p ng-repeat="line in invoice.object.address | toArray" ng-bind-html="line"></p>
+</section>
+<div class="kud-Separator"></div>
+<section class="kud-Content">
+  <h2 class="kud-Content-heading">{{ invoice.object.object }}</h2>
+  <table class="kud-Details">
+    <tr>
+      <th>Prestation</th>
+      <th style="text-align:right;">Prix</th>
+      <th style="text-align:right;">Quantité</th>
+      <th style="text-align:right;">Total (HT)</th>
+    </tr>
+    <tr ng-repeat="line in invoice.object.lines">
+      <td ng-bind="line.item"></td>
+      <td style="text-align:right;" ng-bind="line.price"></td>
+      <td style="text-align:right;" ng-bind="line.quantity"></td>
+      <td style="text-align:right;">{{ line.price * line.quantity | currency:'€' }} HT</td>
+    </tr>
+    <tr class="kud-Details-total">
+      <td style="text-align:right" colspan="3">Total HT</td>
+      <td style="text-align:right;">{{ invoice.object.getPrice() | currency:'€' }} HT</td>
+    </tr>
+    <tr class="kud-Details-total">
+      <td style="text-align:right" colspan="3">TVA</td>
+      <td style="text-align:right;">{{ invoice.object.vat }} %</td>
+    </tr>
+    <tr class="kud-Details-total">
+      <td style="text-align:right" colspan="3">Total TTC</td>
+      <td style="text-align:right;">{{ invoice.object.getATI() | currency:'€' }} TTC</td>
+    </tr>
+  </table>
+</section>
+<section class="kud-Conditions" style="position:fixed;bottom:100px;">
+  <ul style="list-style-type:none;margin:0;padding:0;">
+    <li><strong>Date de paiement : </strong>{{ invoice.object.dueDate | date }}</li>
+    <li><strong>Moyen de paiement : </strong>{{ config.invoice.payment }}</li>
+  </ul>
+</section>
+<section class="kud-LittleSentence" style="padding:10px;position:fixed;bottom:0;border-top:1px solid #888888;width:700px;">
+  <p ng-repeat="line in config.invoice.footer | toArray" ng-bind-html="line"></p>
+</section>
+
+<h2 class="printme">
+  Lancez l'impression de votre navigateur pour obtenir votre facture
+</h2>

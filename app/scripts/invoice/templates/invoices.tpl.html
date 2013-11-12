@@ -1,0 +1,56 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li class="active">Factures</li>
+  <li class="pull-right"><a href="" ng-click="new()">Créer une facture</a></li>
+</ol>
+
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="form-control" placeholder="Rechercher une facture" ng-model="query">
+</div>
+
+<img src="/images/loading.gif" ng-hide="invoices !== null">
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><a href="" ng-click="predicate='num';reverse=!reverse">Num</a></th>
+      <th><a href="" ng-click="predicate='object';reverse=!reverse">Objet</a></th>
+      <th><a href="" ng-click="predicate='getClient.object.name';reverse=!reverse">Client</a></th>
+      <th><a href="" ng-click="predicate='date';reverse=!reverse">Dates</a></th>
+      <th><a href="" ng-click="predicate='getPrice';reverse=!reverse">Montant</a></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="invoice in invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | orderBy:sorter(predicate):reverse">
+      <td ng-bind-html="invoice.object.getDecoratedStatus()"></td>
+      <td ng-bind="invoice.object.object"></td>
+      <td><a ng-href="/#/clients/{{ invoice.object.client.id }}" ng-bind="invoice.object.getClient().object.name"></a></td>
+      <td>
+        <p ng-if="invoice.object.date"><span>Emission :</span> {{ invoice.object.date | date }}</p>
+        <p ng-if="invoice.object.dueDate"><span>Dûe :</span> {{ invoice.object.dueDate | date }}</p>
+      </td>
+      <td>
+        <p><span>HT : </span>{{ invoice.object.getPrice() | currency:'€' }}</p>
+        <p><span>TTC :</span> {{ invoice.object.getATI() | currency:'€' }}</p>
+        <p ng-if="invoice.object.getStatus() === 'open'"><span>Restant dû :</span> {{ invoice.object.getDue() | currency:'€' }}</p>
+      </td>
+      <td style="text-align:right;">
+        <a ng-href="/#/invoices/{{ invoice.id }}" class="btn btn-default">Ouvrir</a>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="total">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td ng-bind="invoices | total | currency:'€'"></td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+

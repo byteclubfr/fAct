@@ -1,0 +1,136 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li><a href="#/clients">Clients</a></li>
+  <li class="active" ng-bind="client.object.name"></li>
+</ol>
+
+<div class="row">
+
+  <div class="col-md-6">
+
+    <form role="form" name="form" novalidate ng-submit="save(client)" class="well">
+
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" class="form-control" id="name" placeholder="Saisissez le nom" ng-model="client.object.name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="note">Note</label>
+        <textarea class="form-control" id="note" ng-model="client.object.note"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Contacts</label>
+        <table>
+          <tr>
+            <td>Nom</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="contact in client.object.contacts">
+            <td><input class="form-control" type="text" ng-model="contact.name"></td>
+            <td><button type="button" class="btn" ng-click="remove(client, 'contacts', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+          <tr><td colspan="3"><button type="button" class="btn" ng-click="add(client, 'contacts')">Ajouter un contact</button></td></tr>
+        </table>
+      </div>
+
+      <div class="form-group">
+        <label>Emails</label>
+        <table>
+          <tr>
+            <td>Nom</td>
+            <td>Email</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="email in client.object.emails">
+            <td><input class="form-control" type="text" ng-model="email.name"></td>
+            <td><input class="form-control" type="email" ng-model="email.value"></td>
+            <td><button type="button" class="btn" ng-click="remove(client, 'emails', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+          <tr><td colspan="3"><button type="button" class="btn" ng-click="add(client, 'emails')">Ajouter un email</button></td></tr>
+        </table>
+      </div>
+
+      <div class="form-group">
+        <label>Téléphones</label>
+        <table>
+          <tr>
+            <td>Nom</td>
+            <td>Téléphone</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="phone in client.object.phones">
+            <td><input class="form-control" type="text" ng-model="phone.name"></td>
+            <td><input class="form-control" type="text" ng-model="phone.value"></td>
+            <td><button type="button" class="btn" ng-click="remove(client, 'phones', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+          <tr><td colspan="3"><button type="button" class="btn" ng-click="add(client, 'phones')">Ajouter un téléphne</button></td></tr>
+        </table>
+      </div>
+
+      <div class="form-group">
+        <label>Adresses</label>
+        <table>
+          <tr>
+            <td>Nom</td>
+            <td>Adresse</td>
+            <td></td>
+          </tr>
+          <tr ng-repeat="address in client.object.addresses">
+            <td style="vertical-align:top;"><input class="form-control" type="text" ng-model="address.name"></td>
+            <td><textarea class="form-control" ng-model="address.value"></textarea></td>
+            <td><button type="button" class="btn" ng-click="remove(client, 'addresses', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+          <tr><td colspan="3"><button type="button" class="btn" ng-click="add(client, 'addresses')">Ajouter une adresse</button></td></tr>
+        </table>
+      </div>
+
+      <button type="submit" class="btn btn-success" ng-disabled='form.$pristine || (form.$dirty && form.$invalid)'><span class="glyphicon glyphicon-ok"></span> Enregistrer</button>
+      <button type="button" class="btn btn-default" ng-click="delete(client)" ng-show="client.id"><span class="glyphicon glyphicon-remove"></span> Supprimer</button>
+      <a href="/#/clients" class="btn">Annuler</a>
+
+    </form>
+  </div>
+
+  <div class="col-md-6">
+
+    <a class="btn btn-default" ng-href="/#/clients/{{ client.id }}/invoices/new" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Ajouter une facture</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><a href="" ng-click="predicate='num';reverse=!reverse">Num</a></th>
+      <th><a href="" ng-click="predicate='object';reverse=!reverse">Objet</a></th>
+      <th><a href="" ng-click="predicate='date';reverse=!reverse">Date</a></th>
+      <th><a href="" ng-click="predicate='getPrice';reverse=!reverse">Montant</a></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="invoice in invoices | orderBy:sorter(predicate):reverse">
+      <td ng-bind-html="invoice.object.getDecoratedStatus()"></td>
+      <td ng-bind="invoice.object.object"></td>
+      <td ng-bind="invoice.object.date | date"></td>
+      <td ng-bind="invoice.object.getPrice() | currency:'€'">Montant</td>
+      <td style="text-align:right;">
+        <a ng-href="/#/invoices/{{ invoice.id }}" class="btn btn-default">Ouvrir</a>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="total">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td ng-bind="invoices | total | currency:'€'"></td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+  </div>
+
+</div>

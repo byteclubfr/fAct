@@ -1,0 +1,45 @@
+body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
+.navbar-header a {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 3em;
+}
+
+form input.ng-dirty.ng-invalid { background: rgb(248, 110, 110); }
+form input.ng-dirty.ng-invalid::-webkit-input-placeholder { color: #fff; }
+form input.ng-dirty.ng-invalid:-moz-placeholder { color: #fff; }
+form input.ng-dirty.ng-invalid::-moz-placeholder {  color: #fff; }
+form input:-ms-input-placeholder { color: #fff; }
+form input.ng-dirty.ng-valid{ background: lightgreen; }
+
+tr.total {
+  font-weight: bold;
+}
+
+.printme {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  padding-top: 200px;
+  text-align: center;
+}
+
+.table p {
+  font-size: .9em;
+  margin: 0;
+}
+.table p span {
+  color: #888;
+}
+
+canvas {
+  width: 100% !important;
+  max-width: 1200px;
+  height: auto !important;
+}

@@ -1,0 +1,170 @@
+<ol class="breadcrumb">
+  <li><a href="#/">Home</a></li>
+  <li><a href="#/invoices">Factures</a></li>
+  <li class="active" ng-bind-html="invoice.object.getDecoratedStatus()"></li>
+  <li class="pull-right"><a ng-href="/#/clients/{{ client.id }}">{{ client.object.name }}</a></li>
+</ol>
+
+
+<form role="form" name="form" novalidate ng-submit="save(invoice)">
+
+  <div class="row" ng-show="invoice.object.num">
+
+    <div class="col-md-12">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Paiements</h3>
+        </div>
+        <div class="panel-body">
+
+          <table style="width:100%;">
+            <thead ng-show="invoice.object.payments.length">
+              <tr>
+                <td>Montant</td>
+                <td>Date</td>
+                <td style="width:50%;">Information</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="line in invoice.object.payments">
+                <td><input class="form-control" type="number" ng-model="line.amount"></td>
+                <td><input class="form-control" type="date" ng-model="line.date" fa-date></td>
+                <td><input class="form-control" type="text" ng-model="line.informations"></td>
+                <td><button type="button" class="btn" ng-click="remove(invoice, 'payments', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr ng-show="invoice.object.lines.length" class="total">
+                <td style="text-align:right;">{{ invoice.object.getPaid() | currency:'€' }}</td>
+                <td colspan="3"></td>
+              </tr>
+              <tr><td colspan="4"><button type="button" class="btn" ng-click="add(invoice, 'payments')">Ajouter un paiement</button></td></tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-5">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Informations</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="form-group">
+            <label for="object">Objet</label>
+            <input type="text" name="object" class="form-control" id="object" placeholder="Objet" ng-model="invoice.object.object" required ng-disabled="invoice.object.num">
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Commentaire</label>
+            <textarea type="text" name="object" class="form-control" id="comment" ng-model="invoice.object.comment"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="vat">TVA</label>
+            <select class="form-control" name="vat" id="vat" ng-model="invoice.object.vat" ng-options="vat for vat in vats" ng-disabled="invoice.object.num" required></select>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-7">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Destinataire</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="form-group">
+            <label for="contact">Contact</label>
+            <div class="row">
+              <div class="col-md-4">
+                <select ng-disabled="invoice.object.num" class="form-control" ng-click="changeContact(invoice.object.client.contact)" ng-change="changeContact(invoice.object.client.contact)" name="clientcontact" id="clientcontact" ng-model="invoice.object.client.contact" ng-options="c.name as c.name for c in client.object.contacts"></select>
+              </div>
+              <div class="col-md-8">
+                <input ng-disabled="invoice.object.num" class="form-control" name="contact" id="contact" type="text" ng-model="invoice.object.contact" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <div class="row">
+              <div class="col-md-4">
+                <select ng-disabled="invoice.object.num" class="form-control" ng-click="changeAddress(invoice.object.client.address)" ng-change="changeAddress(invoice.object.client.address)" name="clientaddress" id="clientaddress" ng-model="invoice.object.client.address" ng-options="c.value as c.name for c in client.object.addresses"></select>
+              </div>
+              <div class="col-md-8">
+                <textarea ng-disabled="invoice.object.num" class="form-control" name="address" id="address" type="text" ng-model="invoice.object.address" required></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <table>
+        <thead ng-show="invoice.object.lines.length">
+          <tr>
+            <td></td>
+            <td>Prix unitaire</td>
+            <td>Quantité</td>
+            <td>Prix total</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="line in invoice.object.lines">
+            <td style="width:65%;"><input class="form-control" ng-disabled="invoice.object.num" type="text" ng-model="line.item"></td>
+            <td><input ng-disabled="invoice.object.num" class="form-control" type="num" ng-model="line.price"></td>
+            <td><input ng-disabled="invoice.object.num" class="form-control" type="num" ng-model="line.quantity"></td>
+            <td><input ng-disabled="true" class="form-control" type="text" ng-value="line.price * line.quantity | currency:'€'"></td>
+            <td><button ng-hide="invoice.object.num" ng-disabled="invoice.object.num" type="button" class="btn" ng-click="remove(invoice, 'lines', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr ng-show="invoice.object.lines.length" class="total">
+            <td colspan="3" style="text-align:right;">Total HT</td>
+            <td colspan="2" style="text-align:right;">{{ invoice.object.getPrice() | currency:'€' }}</td>
+          </tr>
+          <tr ng-show="invoice.object.lines.length" class="total">
+            <td colspan="3" style="text-align:right;">Total TTC</td>
+            <td colspan="2" style="text-align:right;">{{ invoice.object.getATI() | currency:'€' }}</td>
+          </tr>
+          <tr><td colspan="5"><button ng-hide="invoice.object.num" ng-disabled="invoice.object.num" type="button" class="btn" ng-click="add(invoice, 'lines')">Ajouter une ligne</button></td></tr>
+        </tfoot>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="well" style="margin-top:20px;">
+    <button type="submit" class="btn btn-success" ng-disabled='form.$pristine || (form.$dirty && form.$invalid)'><span class="glyphicon glyphicon-ok"></span> Enregistrer</button>
+    <button type="button" class="btn btn-primary" ng-click="open(invoice)" ng-hide="invoice.object.num"><span class="glyphicon glyphicon-print"></span>  Éditer</button>
+    <a ng-href="/#/invoices/{{ invoice.id }}/print" class="btn btn-primary" ng-show="invoice.object.num"><span class="glyphicon glyphicon-print"></span>  Imprimer</button>
+    <button type="button" class="btn btn-default" ng-click="delete(invoice)" ng-show="invoice.id && !invoice.object.num"><span class="glyphicon glyphicon-remove"></span> Supprimer</button>
+    <a href="/#/invoices" class="btn">Annuler</a>
+  </div>
+
+</form>
