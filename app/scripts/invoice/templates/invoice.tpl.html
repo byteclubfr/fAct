@@ -2,7 +2,7 @@
   <li><a href="#/">Home</a></li>
   <li><a href="#/invoices">Factures</a></li>
   <li class="active" ng-bind-html="invoice.object.getDecoratedStatus()"></li>
-  <li class="pull-right"><a ng-href="/#/clients/{{ client.id }}">{{ client.object.name }}</a></li>
+  <li class="pull-right"><a ng-href="#/clients/{{ client.id }}">{{ client.object.name }}</a></li>
 </ol>
 
 
@@ -29,7 +29,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="line in invoice.object.payments">
-                <td><input class="form-control" type="number" ng-model="line.amount"></td>
+                <td><input class="form-control" type="number" ng-model="line.amount" focus-me="invoice.object.payments.length == $index + 1"></td>
                 <td><input class="form-control" type="date" ng-model="line.date" fa-date></td>
                 <td><input class="form-control" type="text" ng-model="line.informations"></td>
                 <td><button type="button" class="btn" ng-click="remove(invoice, 'payments', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
@@ -135,7 +135,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="line in invoice.object.lines">
-            <td style="width:65%;"><input class="form-control" ng-disabled="invoice.object.num" type="text" ng-model="line.item"></td>
+            <td style="width:65%;"><input class="form-control" ng-disabled="invoice.object.num" type="text" ng-model="line.item" focus-me="invoice.object.lines.length == $index + 1"></td>
             <td><input ng-disabled="invoice.object.num" class="form-control" type="num" ng-model="line.price"></td>
             <td><input ng-disabled="invoice.object.num" class="form-control" type="num" ng-model="line.quantity"></td>
             <td><input ng-disabled="true" class="form-control" type="text" ng-value="line.price * line.quantity | currency:'€'"></td>
@@ -162,9 +162,9 @@
   <div class="well" style="margin-top:20px;">
     <button type="submit" class="btn btn-success" ng-disabled='form.$pristine || (form.$dirty && form.$invalid)'><span class="glyphicon glyphicon-ok"></span> Enregistrer</button>
     <button type="button" class="btn btn-primary" ng-click="open(invoice)" ng-hide="invoice.object.num"><span class="glyphicon glyphicon-print"></span>  Éditer</button>
-    <a ng-href="/#/invoices/{{ invoice.id }}/print" class="btn btn-primary" ng-show="invoice.object.num"><span class="glyphicon glyphicon-print"></span>  Imprimer</button>
+    <a ng-href="#/invoices/{{ invoice.id }}/print" class="btn btn-primary" ng-show="invoice.object.num"><span class="glyphicon glyphicon-print"></span>  Imprimer</a>
     <button type="button" class="btn btn-default" ng-click="delete(invoice)" ng-show="invoice.id && !invoice.object.num"><span class="glyphicon glyphicon-remove"></span> Supprimer</button>
-    <a href="/#/invoices" class="btn">Annuler</a>
+    <a href="#/invoices" class="btn">Annuler</a>
   </div>
 
 </form>

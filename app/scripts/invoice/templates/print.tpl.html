@@ -7,6 +7,8 @@
   <p>Date : {{ invoice.object.date | date}}</p>
 </section>
 <section class="kud-Addressee">
+  <p ng-bind="client.object.name"></p>
+  <p ng-bind="invoice.object.contact"></p>
   <p ng-repeat="line in invoice.object.address | toArray" ng-bind-html="line"></p>
 </section>
 <div class="kud-Separator"></div>

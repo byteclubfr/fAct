@@ -8,7 +8,7 @@ angular.module( 'fAct.home', [
     .when( '/', {
       controller: 'HomeCtrl',
       templateUrl: 'scripts/home/templates/home.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     ;
 })

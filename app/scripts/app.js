@@ -14,12 +14,12 @@ angular.module('fAct.app', [
 .value({
   config: {
     FirebaseUrl: 'https://lmtm.firebaseio.com',
-    vats: [19.6, 7.7],
+    vats: [19.6, 7],
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2013,
     company: {
       address: '2 quai André Rhuys\n44200 Nantes',
-      logo: '/images/lmtm.png'
+      logo: 'images/lmtm.png'
     },
     invoice: {
       payment: "Chèque ou virement",

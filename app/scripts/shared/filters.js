@@ -3,7 +3,7 @@ angular.module('fAct.filters', [
 
 .filter('list', function() {
   return function(item, key) {
-    items = item[key] || [];
+    var items = item[key] || [];
     return items.map(function(e) { return e.value || e.name; }).join(', ');
   }
 })

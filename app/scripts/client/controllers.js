@@ -8,12 +8,12 @@ angular.module( 'fAct.client', [
     .when( '/clients', {
       controller: 'ClientsCtrl',
       templateUrl: 'scripts/client/templates/clients.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     .when( '/clients/:id', {
       controller: 'ClientCtrl',
       templateUrl: 'scripts/client/templates/client.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     ;
 })

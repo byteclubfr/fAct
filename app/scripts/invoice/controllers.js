@@ -9,22 +9,22 @@ angular.module( 'fAct.invoice', [
     .when( '/invoices', {
       controller: 'InvoicesCtrl',
       templateUrl: 'scripts/invoice/templates/invoices.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     .when( '/clients/:clid/invoices/new', {
       controller: 'InvoiceCtrl',
       templateUrl: 'scripts/invoice/templates/invoice.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     .when( '/invoices/:id', {
       controller: 'InvoiceCtrl',
       templateUrl: 'scripts/invoice/templates/invoice.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     .when( '/invoices/:id/print', {
       controller: 'PrintCtrl',
       templateUrl: 'scripts/invoice/templates/print.tpl.html',
-      resolve: { user: function(Fire) { return Fire.auth(); } }
+      resolve: { user: ['Fire', function(Fire) { return Fire.auth(); }] }
     })
     ;
 })
@@ -59,7 +59,7 @@ angular.module( 'fAct.invoice', [
   if ($routeParams.clid) {
     Fire.get('clients', $routeParams.clid).then(function(client) {
       $scope.client = client;
-      $scope.invoice = Fire.create("invoices", { "vat": vats[0], "client": { "id": $routeParams.clid } });
+      $scope.invoice = Fire.create("invoices", { "vat": config.vats[0], "client": { "id": $routeParams.clid } });
     }, function(err) {
       Flash.error("Client non trouvé", '/clients');
     });
@@ -99,6 +99,14 @@ angular.module( 'fAct.invoice', [
     if (!invoice.object.financialYear) invoice.object.financialYear = config.financialYear;
     Fire.save(invoice).then(function(invid) {
       Flash.success("Facture enregistrée avec succès", "/invoices/" + invid);
+    }, function(err) {
+      Flash.error("Error " + err);
+    });
+  }
+
+  $scope.delete = function(invoice) {
+    Fire.delete(invoice).then(function() {
+      Flash.success("Facture supprimée", "/invoices");
     }, function(err) {
       Flash.error("Error " + err);
     });

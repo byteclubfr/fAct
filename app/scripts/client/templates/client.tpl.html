@@ -28,7 +28,7 @@
             <td></td>
           </tr>
           <tr ng-repeat="contact in client.object.contacts">
-            <td><input class="form-control" type="text" ng-model="contact.name"></td>
+            <td><input class="form-control" type="text" ng-model="contact.name" focus-me="client.object.contacts.length == $index + 1"></td>
             <td><button type="button" class="btn" ng-click="remove(client, 'contacts', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
           </tr>
           <tr><td colspan="3"><button type="button" class="btn" ng-click="add(client, 'contacts')">Ajouter un contact</button></td></tr>
@@ -44,7 +44,7 @@
             <td></td>
           </tr>
           <tr ng-repeat="email in client.object.emails">
-            <td><input class="form-control" type="text" ng-model="email.name"></td>
+            <td><input class="form-control" type="text" ng-model="email.name" focus-me="client.object.emails.length == $index + 1"></td>
             <td><input class="form-control" type="email" ng-model="email.value"></td>
             <td><button type="button" class="btn" ng-click="remove(client, 'emails', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
           </tr>
@@ -61,7 +61,7 @@
             <td></td>
           </tr>
           <tr ng-repeat="phone in client.object.phones">
-            <td><input class="form-control" type="text" ng-model="phone.name"></td>
+            <td><input class="form-control" type="text" ng-model="phone.name" focus-me="client.object.phones.length == $index + 1"></td>
             <td><input class="form-control" type="text" ng-model="phone.value"></td>
             <td><button type="button" class="btn" ng-click="remove(client, 'phones', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
           </tr>
@@ -78,7 +78,7 @@
             <td></td>
           </tr>
           <tr ng-repeat="address in client.object.addresses">
-            <td style="vertical-align:top;"><input class="form-control" type="text" ng-model="address.name"></td>
+            <td style="vertical-align:top;"><input class="form-control" type="text" ng-model="address.name" focus-me="client.object.addresses.length == $index + 1"></td>
             <td><textarea class="form-control" ng-model="address.value"></textarea></td>
             <td><button type="button" class="btn" ng-click="remove(client, 'addresses', $index)"><span class="glyphicon glyphicon-remove"></span></button></td>
           </tr>
@@ -88,14 +88,14 @@
 
       <button type="submit" class="btn btn-success" ng-disabled='form.$pristine || (form.$dirty && form.$invalid)'><span class="glyphicon glyphicon-ok"></span> Enregistrer</button>
       <button type="button" class="btn btn-default" ng-click="delete(client)" ng-show="client.id"><span class="glyphicon glyphicon-remove"></span> Supprimer</button>
-      <a href="/#/clients" class="btn">Annuler</a>
+      <a href="#/clients" class="btn">Annuler</a>
 
     </form>
   </div>
 
   <div class="col-md-6">
 
-    <a class="btn btn-default" ng-href="/#/clients/{{ client.id }}/invoices/new" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Ajouter une facture</a>
+    <a class="btn btn-default" ng-href="#/clients/{{ client.id }}/invoices/new" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Ajouter une facture</a>
 
 <table class="table table-striped">
   <thead>
@@ -114,7 +114,7 @@
       <td ng-bind="invoice.object.date | date"></td>
       <td ng-bind="invoice.object.getPrice() | currency:'€'">Montant</td>
       <td style="text-align:right;">
-        <a ng-href="/#/invoices/{{ invoice.id }}" class="btn btn-default">Ouvrir</a>
+        <a ng-href="#/invoices/{{ invoice.id }}" class="btn btn-default">Ouvrir</a>
       </td>
     </tr>
   </tbody>

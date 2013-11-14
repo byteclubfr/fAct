@@ -9,7 +9,7 @@
   <input type="text" class="form-control" placeholder="Rechercher un client" ng-model="query">
 </div>
 
-<img src="/images/loading.gif" ng-hide="clients !== null">
+<img src="images/loading.gif" ng-hide="clients !== null">
 
 <table class="table table-striped" ng-show="clients">
   <thead>
@@ -24,8 +24,8 @@
       <td ng-bind="client.object.name"></td>
       <td ng-bind="client.object | list:'contacts'"></td>
       <td style="text-align:right;">
-        <a ng-href="/#/clients/{{ client.id }}/invoices/new" class="btn btn-default">Facturer</a>
-        <a ng-href="/#/clients/{{ client.id }}" class="btn btn-default">Ouvrir</a>
+        <a ng-href="#/clients/{{ client.id }}/invoices/new" class="btn btn-default">Facturer</a>
+        <a ng-href="#/clients/{{ client.id }}" class="btn btn-default">Ouvrir</a>
       </td>
     </tr>
   </tbody>

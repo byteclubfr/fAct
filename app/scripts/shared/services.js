@@ -1,7 +1,7 @@
 angular.module('fAct.services', [
 ])
 
-.factory('Fire', function( config, $q, $location, $rootScope, config ) {
+.factory('Fire', function( config, $q, $location, $rootScope ) {
 
   var refs = {};
 
@@ -196,6 +196,18 @@ angular.module('fAct.services', [
       return deferred.promise;
     },
 
+    delete: function(item) {
+      var deferred = $q.defer();
+      if (!item.ref) deferred.reject('Suppression impossible');
+      else {
+        item.ref.remove(function(err) {
+          if (err) deferred.reject(err);
+          else deferred.resolve('ok');
+        });
+      }
+      return deferred.promise;
+    },
+
     sorter: function(predicate) {
       return function(item) {
         if (!predicate) return;
@@ -204,7 +216,7 @@ angular.module('fAct.services', [
         var res = item.object;
         var ps = _.clone(predicates);
         while (ps.length) {
-          p = ps.shift();
+          var p = ps.shift();
           if (typeof res[p] === 'function') res = res[p]();
           else res = res[p];
         }
@@ -231,7 +243,7 @@ angular.module('fAct.services', [
         if (!predicates || !query) return true;
 
         // specified search (for exemple status:open only search on status key)
-        queries = query.split(':');
+        var queries = query.split(':');
         if (queries.length > 1) {
           var predicate = find(predicates, queries[0]) || find(predicates, 'get' + capitalize(queries[0]));
           if (predicate) {

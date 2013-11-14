@@ -155,17 +155,19 @@ module.exports = function (grunt) {
     },
     // not used since Uglify task does concat,
     // but still available if needed
-    /*concat: {
-      dist: {}
-    },*/
+    concat: {
+      template: {
+        'tpls.js': ['template.js']
+      }
+    },
     rev: {
       dist: {
         files: {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
+            //'<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            //'<%= yeoman.dist %>/styles/fonts/*'
           ]
         }
       }
@@ -247,8 +249,8 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '.htaccess',
-            'bower_components/**/*',
+            //'.htaccess',
+            //'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
             'styles/fonts/*'
           ]
@@ -258,6 +260,14 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/images',
           src: [
             'generated/*'
+          ]
+        }, {
+          expand: true,
+          dot: true,
+          cwd: 'app/bower_components/bootstrap',
+          dest: 'dist',
+          src: [
+            'fonts/*'
           ]
         }]
       },
@@ -314,6 +324,16 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    ngtemplates:  {
+      'fAct.app':        {
+        src:      '**/*.tpl.html',
+        dest:     '.tmp/scripts/template.js',
+        options: {
+          concat: '<%= yeoman.dist %>/scripts/scripts.js',
+          cut: 'app/'
+        }
+      }
     }
   });
 
@@ -345,13 +365,14 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
+    'ngtemplates',
     'concat',
     'copy:dist',
     'cdnify',
     'ngmin',
     'cssmin',
     'uglify',
-    'rev',
+    //'rev',
     'usemin'
   ]);
 
