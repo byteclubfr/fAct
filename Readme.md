@@ -1,5 +1,25 @@
+## Installation
 
-## Security rules
+* Clone this repository
+* npm install -g grunt-cli
+* npm install -g bower
+* npm install
+
+## Firebase
+
+### 1. Create a firebase account
+
+### 2. Create a ```users``` collection
+
+Add authorized users :
+
+key must be emails (replace "." by ",", as firebase does not allow "." in key)
+
+![alt tag](https://raw.github.com/t8g/fAct/master/firebase.png)
+
+### Security rules
+
+Update security rules
 
 ```
 {
@@ -10,6 +30,10 @@
 }
 ```
 
-Créer une collection ```users``` clés de la collection : emails autorisés ( "."" remplacé par ",").
+## Launch !
 
-Par exemple "tmoyse@gmail.com" stocker avec la clé "tmoyse@gmail,com"
+```grunt server --firebase=yourfirebaseurl```
+
+### Build
+
+```grunt build --firebase=yourfirebaseurl```
