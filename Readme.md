@@ -17,7 +17,7 @@ key must be emails (replace "." by ",", as firebase does not allow "." in key)
 
 ![Firebase Users collection](https://raw.github.com/lmtm/fAct/master/firebase.png)
 
-### Security rules
+### 3. Security rules
 
 Update security rules
 
@@ -34,6 +34,6 @@ Update security rules
 
 ```grunt server --firebase=yourfirebaseurl```
 
-### Build
+## Build
 
 ```grunt build --firebase=yourfirebaseurl```
