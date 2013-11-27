@@ -242,21 +242,30 @@ angular.module('fAct.services', [
       return function(item) {
         if (!predicates || !query) return true;
 
-        // specified search (for exemple status:open only search on status key)
-        var queries = query.split(':');
-        if (queries.length > 1) {
-          var predicate = find(predicates, queries[0]) || find(predicates, 'get' + capitalize(queries[0]));
-          if (predicate) {
-            var value = _this.sorter(predicate)(item);
-            return comparator(value, queries[1]);
-          } else query = queries[1];
-        }
+        var res = true;
 
-        var res = false;
-        _.forEach(predicates, function(predicate) {
-          var value = _this.sorter(predicate)(item);
-          res = res || comparator(value, query);
-        })
+        var tokens = query.split(' ');
+        _.forEach(tokens, function(token) {
+          var localres = false;
+          var localPredicates = angular.copy(predicates);
+          token = token.trim();
+
+          // specified search (for exemple status:open only search on status key)
+          var specific = token.split(':');
+          if (specific.length > 1) {
+            var predicate = find(localPredicates, specific[0]) || find(localPredicates, 'get' + capitalize(specific[0]));
+            if (predicate) localPredicates = [predicate];
+            token = specific[1];
+          }
+
+          _.forEach(localPredicates, function(predicate) {
+            var value = _this.sorter(predicate)(item);
+            localres = localres || comparator(value, token);
+          })
+
+          res = res && localres;
+
+        });
         return res;
 
       }
