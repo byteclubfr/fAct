@@ -15,7 +15,7 @@ Add authorized users :
 
 key must be emails (replace "." by ",", as firebase does not allow "." in key)
 
-![alt tag](https://raw.github.com/t8g/fAct/master/firebase.png)
+![Firebase Users collection](https://raw.github.com/lmtm/fAct/master/firebase.png)
 
 ### Security rules
 
