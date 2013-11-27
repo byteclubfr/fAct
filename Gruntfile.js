@@ -327,11 +327,11 @@ module.exports = function (grunt) {
     },
     ngtemplates:  {
       'fAct.app':        {
+        cwd:      'app',
         src:      '**/*.tpl.html',
         dest:     '.tmp/scripts/template.js',
         options: {
-          concat: '<%= yeoman.dist %>/scripts/scripts.js',
-          cut: 'app/'
+          concat: '<%= yeoman.dist %>/scripts/scripts.js'
         }
       }
     },
