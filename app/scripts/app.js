@@ -13,8 +13,8 @@ angular.module('fAct.app', [
 
 .value({
   config: {
-    FirebaseUrl: 'https://lmtm.firebaseio.com',
-    vats: [19.6, 7],
+    FirebaseUrl: '@@FIREBASE_URL',
+    vats: [19.6, 7, 20, 10],
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2013,
     company: {

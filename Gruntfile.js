@@ -334,6 +334,24 @@ module.exports = function (grunt) {
           cut: 'app/'
         }
       }
+    },
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'FIREBASE_URL',
+              replacement: grunt.option('firebase')
+            }
+          ]
+        },
+        files: [
+          {
+            src: ['<%= yeoman.app %>/scripts/app.js'],
+            dest: '<%= yeoman.app %>/scripts/app.build.js'
+          }
+        ]
+      }
     }
   });
 
@@ -348,6 +366,7 @@ module.exports = function (grunt) {
       'autoprefixer',
       'connect:livereload',
       //'open',
+      'replace',
       'watch'
     ]);
   });
@@ -366,6 +385,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'ngtemplates',
+    'replace',
     'concat',
     'copy:dist',
     'cdnify',
