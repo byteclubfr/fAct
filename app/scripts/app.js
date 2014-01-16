@@ -16,7 +16,7 @@ angular.module('fAct.app', [
     FirebaseUrl: '@@FIREBASE_URL',
     vats: [20, 19.6, 7, 10],
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
-    financialYear: 2013,
+    financialYear: 2014,
     company: {
       address: '<strong>LMTM</strong>\n2 quai André Rhuys\n44200 Nantes\n<em>Téléphone</em> 02 15 32 15 62\n<em>Email</em> contact@lmtm.fr',
       logo: 'images/lmtm.png',
