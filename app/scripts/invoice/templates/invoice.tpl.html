@@ -37,7 +37,10 @@
             </tbody>
             <tfoot>
               <tr ng-show="invoice.object.lines.length" class="total">
-                <td style="text-align:right;">{{ invoice.object.getPaid() | currency:'€' }}</td>
+                <td style="text-align:right;">
+                  <p><span>Payé :</span> {{ invoice.object.getPaid() | currency:'€' }}</p>
+                  <p><span>Restant dû :</span> {{ invoice.object.getDue() | currency:'€' }}</p>
+                </td>
                 <td colspan="3"></td>
               </tr>
               <tr><td colspan="4"><button type="button" class="btn" ng-click="add(invoice, 'payments')">Ajouter un paiement</button></td></tr>
@@ -74,6 +77,17 @@
           <div class="form-group">
             <label for="vat">TVA</label>
             <select class="form-control" name="vat" id="vat" ng-model="invoice.object.vat" ng-options="vat for vat in vats" ng-disabled="invoice.object.num" required></select>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6" ng-if="invoice.object.date">
+              <label for="vat">Emission</label>
+              {{ invoice.object.date | date }}
+            </div>
+            <div class="col-md-6" ng-if="invoice.object.dueDate">
+              <label for="vat">Dûe</label>
+              {{ invoice.object.dueDate | date }}
+            </div>
           </div>
 
         </div>
