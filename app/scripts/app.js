@@ -14,16 +14,19 @@ angular.module('fAct.app', [
 .value({
   config: {
     FirebaseUrl: '@@FIREBASE_URL',
-    vats: [19.6, 7, 20, 10],
+    vats: [20, 19.6, 7, 10],
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2013,
     company: {
-      address: '2 quai André Rhuys\n44200 Nantes',
-      logo: 'images/lmtm.png'
+      address: '<strong>LMTM</strong>\n2 quai André Rhuys\n44200 Nantes\n<em>Téléphone</em> 02 15 32 15 62\n<em>Email</em> contact@lmtm.fr',
+      logo: 'images/lmtm.png',
+      baseline: 'Nous mettons vos idées en applications !',
+      identity: '&nbsp;\nSARL au capital social de 5 000 € \nRCS NANTES B 791 143 258\nN° TVA FR30791143258',
+      bank: '&nbsp;\n<em>Banque</em> CIC NANTES VOLTAIRE\n<em>RIB</em> 30047 14010 00020700501 90\n<em>IBAN</em> FR76 3004 7140 1000 0207 0050 190\n<em>BIC</em> CMCIFRPP'
     },
     invoice: {
       payment: "Chèque ou virement",
-      footer: "En cas de retard de paiement, seront exigibles, conformément à l'article L 441­6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros.\n<strong>LMTM</strong> : SARL au capital social de 5 000 € ­ RCS NANTES B 791 143 258 ­ n° TVA FR30791143258"
+      footer: "En cas de retard de paiement, seront exigibles, conformément à l'article L 441­6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros."
     }
   }
 })
