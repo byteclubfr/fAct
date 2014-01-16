@@ -9,8 +9,9 @@ angular.module('fAct.filters', [
 })
 
 .filter('total', function() {
-  return function(list) {
-    return _.reduce(list, function(pv, cv) { return pv + cv.object.getPrice(); }, 0);
+  return function(list, method) {
+    method = method || 'getPrice';
+    return _.reduce(list, function(pv, cv) { return pv + cv.object[method](); }, 0);
   }
 })
 
