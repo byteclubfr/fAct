@@ -10,7 +10,8 @@
     "moment": "*",
     "lodash": "*",
     "AngularJS-Toaster": "jirikavi/AngularJS-Toaster",
-    "angularjs-nvd3-directives": "~0.0.2-beta"
+    "angularjs-nvd3-directives": "~0.0.2-beta",
+    "angular-i18n": "~1.2.6"
   },
   "devDependencies": {},
   "resolutions": {
