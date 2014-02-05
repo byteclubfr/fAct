@@ -18,7 +18,7 @@ angular.module('fAct.app', [
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2014,
     company: {
-      address: '<strong>LMTM</strong>\n2 quai André Rhuys\n44200 Nantes\n<em>Téléphone</em> 02 15 32 15 62\n<em>Email</em> contact@lmtm.fr',
+      address: '<strong>LMTM</strong>\n2 quai André Rhuys\n44200 Nantes\n<em>Téléphone</em> 06 14 66 76 41\n<em>Email</em> contact@lmtm.fr',
       logo: 'images/lmtm.png',
       baseline: 'Nous mettons vos idées en applications !',
       identity: '&nbsp;\nSARL au capital social de 5 000 € \nRCS NANTES B 791 143 258\nN° TVA FR30791143258',
