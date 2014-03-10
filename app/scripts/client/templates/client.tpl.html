@@ -120,12 +120,11 @@
   </tbody>
   <tfoot>
     <tr class="total">
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td ng-bind="invoices | total | currency:'€'"></td>
-      <td></td>
+      <td colspan="5" style="text-align:right;padding-right:10%;">
+        <p><span>HT : </span> {{ invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | total:'getPrice' | currency:'€' }}</p>
+        <p><span>TTC :</span> {{ invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | total:'getATI' | currency:'€' }}</p>
+        <p><span>Restant dû :</span> {{ invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | total:'getDue' | currency:'€' }}</p>
+      </td>
     </tr>
   </tfoot>
 </table>
