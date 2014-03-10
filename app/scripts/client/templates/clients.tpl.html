@@ -14,13 +14,13 @@
 <table class="table table-striped" ng-show="clients">
   <thead>
     <tr>
-      <th><a href="" ng-click="predicate='name';reverse=!reverse">Nom</a></th>
+      <th><a href="" ng-click="parameters.predicate='name';parameters.reverse=!parameters.reverse">Nom</a></th>
       <th>Contacts</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="client in clients | filter:finder(['name'], query) | orderBy:sorter(predicate):reverse">
+    <tr ng-repeat="client in clients | filter:finder(['name'], query) | orderBy:sorter(parameters.predicate):parameters.reverse">
       <td ng-bind="client.object.name"></td>
       <td ng-bind="client.object | list:'contacts'"></td>
       <td style="text-align:right;">

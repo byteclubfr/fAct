@@ -29,12 +29,15 @@ angular.module( 'fAct.invoice', [
     ;
 })
 
-.controller( 'InvoicesCtrl', function InvoicesCtrl( $scope, $location, Fire, Flash ) {
+.value( 'InvoicesParameters', {
+  predicate: 'date',
+  reverse: true
+})
+
+.controller( 'InvoicesCtrl', function InvoicesCtrl( $scope, $location, Fire, Flash, InvoicesParameters ) {
   $scope.invoices = null;
 
-  // default sort by date reverse
-  $scope.predicate = 'date';
-  $scope.reverse = true;
+  $scope.parameters = InvoicesParameters;
 
   Fire.collection('invoices').then(function(invoices) {
     $scope.invoices = invoices;

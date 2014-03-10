@@ -14,16 +14,16 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><a href="" ng-click="predicate='num';reverse=!reverse">Num</a></th>
-      <th><a href="" ng-click="predicate='object';reverse=!reverse">Objet</a></th>
-      <th><a href="" ng-click="predicate='getClient.object.name';reverse=!reverse">Client</a></th>
-      <th><a href="" ng-click="predicate='date';reverse=!reverse">Dates</a></th>
-      <th><a href="" ng-click="predicate='getPrice';reverse=!reverse">Montant</a></th>
+      <th><a href="" ng-click="parameters.predicate='num';parameters.reverse=!parameters.reverse">Num</a></th>
+      <th><a href="" ng-click="parameters.predicate='object';parameters.reverse=!parameters.reverse">Objet</a></th>
+      <th><a href="" ng-click="parameters.predicate='getClient.object.name';parameters.reverse=!parameters.reverse">Client</a></th>
+      <th><a href="" ng-click="parameters.predicate='date';parameters.reverse=!parameters.reverse">Dates</a></th>
+      <th><a href="" ng-click="parameters.predicate='getPrice';parameters.reverse=!parameters.reverse">Montant</a></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="invoice in invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | orderBy:sorter(predicate):reverse">
+    <tr ng-repeat="invoice in invoices | filter:finder(['num', 'object', 'getClient.object.name', 'getStatus', 'getPrice'], query) | orderBy:sorter(parameters.predicate):parameters.reverse">
       <td ng-bind-html="invoice.object.getDecoratedStatus()"></td>
       <td ng-bind="invoice.object.object"></td>
       <td><a ng-href="#/clients/{{ invoice.object.client.id }}" ng-bind="invoice.object.getClient().object.name"></a></td>

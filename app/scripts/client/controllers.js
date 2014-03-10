@@ -18,7 +18,13 @@ angular.module( 'fAct.client', [
     ;
 })
 
-.controller( 'ClientsCtrl', function ClientsCtrl( $scope, Fire ) {
+.value( 'ClientsParameters', {
+  predicate: 'date',
+  reverse: true
+})
+
+.controller( 'ClientsCtrl', function ClientsCtrl( $scope, Fire, ClientsParameters ) {
+  $scope.parameters = ClientsParameters;
   $scope.clients = null;
   Fire.collection('clients').then(function(clients) {
     $scope.clients = clients;
@@ -26,6 +32,10 @@ angular.module( 'fAct.client', [
 })
 
 .controller( 'ClientCtrl', function ClientCtrl( $scope, $routeParams, Fire, Flash, multi ) {
+
+  // default sort order : date & reverse
+  $scope.predicate = 'date';
+  $scope.reverse = true;
 
   if ($routeParams.id === 'new') {
     $scope.client = Fire.create("clients");
