@@ -41,8 +41,8 @@
       <td style="text-align:right;">{{ invoice.object.getPrice() | currency:'€' }} HT</td>
     </tr>
     <tr class="total">
-      <td style="text-align:right" colspan="3">TVA</td>
-      <td style="text-align:right;">{{ invoice.object.vat }} %</td>
+      <td style="text-align:right" colspan="3">TVA ({{ invoice.object.vat }} %)</td>
+      <td style="text-align:right;">{{ invoice.object.getVAT() | currency:'€' }}</td>
     </tr>
     <tr class="total">
       <td style="text-align:right" colspan="3">Total TTC</td>

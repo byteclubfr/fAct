@@ -18,6 +18,10 @@ angular.module('fAct.services', [
         return this.clients[this.client.id];
       },
 
+      getVAT: function() {
+        return this.getATI() - this.getPrice();
+      },
+
       getATI: function() {
         return this.getPrice() * (1 + this.vat / 100);
       },
