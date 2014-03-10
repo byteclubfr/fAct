@@ -31,6 +31,11 @@ angular.module( 'fAct.invoice', [
 
 .controller( 'InvoicesCtrl', function InvoicesCtrl( $scope, $location, Fire, Flash ) {
   $scope.invoices = null;
+
+  // default sort by date reverse
+  $scope.predicate = 'date';
+  $scope.reverse = true;
+
   Fire.collection('invoices').then(function(invoices) {
     $scope.invoices = invoices;
     _.forEach(invoices, function(i) { i.object.populate(); })
