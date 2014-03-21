@@ -75,6 +75,7 @@ table tbody {
   border-left: .1cm solid #ddd;
   border-right: .1cm solid #ddd;
   border-bottom: .05cm solid #ddd;
+  border-top: .05cm solid #ddd;
 }
 table tbody tr:nth-child(odd) {
   background-color: #ddd;
