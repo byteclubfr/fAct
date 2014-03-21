@@ -82,7 +82,7 @@ angular.module( 'fAct.planning', [
       else $scope.tasks.object[splitted[0]][splitted[1]] = project;
       delete $scope.selected[item];
     });
-    save($scope.tasks);
+    if (selected.length) save($scope.tasks);
   };
 
   $scope.addAndUpdate = function (form) {
