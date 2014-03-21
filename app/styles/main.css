@@ -42,3 +42,39 @@ canvas {
   max-width: 1200px;
   height: auto !important;
 }
+
+.planning a.task {
+  float: left;
+  margin: 2px;
+  border: 1px solid #ddd;
+  width: 45%;
+  height: 20px;
+}
+.planning a.task:hover {
+  text-decoration: none;
+  color: #888;
+}
+.planning .custom {
+  text-align: center;
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-size: 1.3em;
+  color: #888;
+}
+.planning .custom:before {
+  content: "\e013";
+}
+.planning table.planning tbody th {
+  vertical-align: center;
+}
+.planning .glow {
+  box-shadow: 0 0 5px rgba(255, 0, 0, 1);
+}

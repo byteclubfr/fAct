@@ -2,19 +2,21 @@
   "name": "refAct",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2",
-    "angular-route": "1.2",
-    "angular-sanitize": "1.2",
-    "angular-animate": "1.2",
-    "bootstrap": "~3.0.0",
+    "angular": "*",
+    "angular-route": "*",
+    "angular-sanitize": "*",
+    "angular-animate": "*",
+    "bootstrap": "*",
     "moment": "*",
     "lodash": "*",
     "AngularJS-Toaster": "jirikavi/AngularJS-Toaster",
-    "angularjs-nvd3-directives": "~0.0.2-beta",
-    "angular-i18n": "~1.2.6"
+    "chartjs-directive": "*",
+    "Chart.js": "nnnick/Chart.js",
+    "angular-bootstrap": "~0.10.0",
+    "angular-bootstrap-colorpicker": "~3.0.5"
   },
   "devDependencies": {},
   "resolutions": {
-    "angular": "1.2"
+    "angular": "1.2.14"
   }
 }

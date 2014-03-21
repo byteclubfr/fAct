@@ -1,0 +1,78 @@
+<div class="row planning">
+
+  <div class="col-md-9">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Planning du
+        <strong ng-bind="range[0][0] | date:'dd/MM/yyyy'"></strong>
+        au
+        <strong ng-bind="range[range.length-1][range[range.length-1].length-1] | date:'dd/MM/yyyy'"></strong>
+        <div class="btn-group pull-right">
+          <a ng-href="#/planning/{{ lastweek }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <a ng-href="#/planning/{{ nextweek }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+      </div>
+
+        <table class="table table-condensed table-hover" ng-repeat="dates in range">
+          <thead>
+            <tr>
+              <th></th>
+              <th ng-repeat="date in dates" style="width:12%;font-size:10px;">{{ date | date:'EEEE d' }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(user, usertasks) in tasks.object">
+              <th>{{ user }}</th>
+              <td ng-repeat="date in dates">
+
+                <a href=""
+                  ng-click="select(user, date, 'AM')"
+                  ng-class="{glow:selected[user+'||'+date+'AM']}"
+                  ng-style="{'background-color': color(user, date, 'AM')}"
+                  class="task {{ style(user, date, 'AM') }}"
+                  popover="{{ usertasks[date+'AM'] | project }}" popover-trigger="mouseenter"></a>
+
+                <a href=""
+                  ng-click="select(user, date, 'PM')"
+                  ng-class="{glow:selected[user+'||'+date+'PM']}"
+                  ng-style="{'background-color': color(user, date, 'PM')}"
+                  class="task {{ style(user, date, 'PM') }}"
+                  popover="{{ usertasks[date+'PM'] | project }}" popover-trigger="mouseenter"></a>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-3">
+
+    <div class="panel panel-default" ng-hide="selected | empty">
+      <div class="panel-body" ng-click="addAndUpdate(entryForm)">
+        <form role="form" name="entryForm" novalidate>
+          <div class="form-group">
+            <label for="entry">Autre / nouveau projet</label>
+            <input type="text" class="form-control" id="entry" name="entry" ng-model="entry" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-default" ng-click="updateSelected()"><span class="glyphicon glyphicon-remove"></span> Vider</button>
+        </form>
+      </div>
+    </div>
+
+    <ul class="list-group">
+      <li ng-repeat="(project, projectproperties) in projects.object" class="list-group-item" style="cursor:pointer;" ng-click="updateSelected(':' + project)">
+        <span class="badge" colorpicker-position="left" colorpicker ng-model="projectproperties.color" stop-event="click" ng-style="{'background-color': projectproperties.color}">
+          <span class="glyphicon glyphicon-cog"></span>
+        </span>
+        {{ project }}
+      </li>
+    </ul>
+
+  </div>
+
+</div>

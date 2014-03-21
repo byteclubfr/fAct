@@ -80,8 +80,8 @@ angular.module('fAct.services', [
       clients: {}
     },
 
-    'clients': {
-    }
+    'clients': {},
+    'planning': {}
   }
 
   var slashurl = function(url) {
@@ -159,9 +159,9 @@ angular.module('fAct.services', [
       return deferred.promise;
     },
 
-    create: function(url, src) {
+    create: function(url, src, id) {
       return {
-        "id": null,
+        "id": id || null,
         "url": url,
         "object": extend(src || {}, url)
       }
@@ -178,6 +178,8 @@ angular.module('fAct.services', [
             "ref": child.ref(),
             "object": extend(child.val(), url)
           });
+        } else {
+          deferred.reject('no data');
         }
       });
       return deferred.promise;
@@ -186,9 +188,13 @@ angular.module('fAct.services', [
     save: function(item) {
       var deferred = $q.defer();
       if (!item.ref) { // Temporary create an empty item
-        item.ref = getRef(item.url).push({
-          "temp": "something"
-        });
+        if (!item.id) {
+          item.ref = getRef(item.url).push({
+            "temp": "something"
+          });
+        } else {
+          item.ref = getRef(item.url + '/' + item.id);
+        }
       }
       var obj = angular.copy(_.omit(item.object, _.keys(models[item.url])));
       item.ref.set(obj, function(err, o) {

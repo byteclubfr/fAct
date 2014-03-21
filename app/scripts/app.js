@@ -2,13 +2,16 @@
 
 angular.module('fAct.app', [
   'ngRoute',
+  'chartjs-directive',
   'toaster',
+  'ui.bootstrap',
   'fAct.services',
   'fAct.filters',
   'fAct.directives',
   'fAct.home',
   'fAct.invoice',
-  'fAct.client'
+  'fAct.client',
+  'fAct.planning'
 ])
 
 .value({
@@ -27,6 +30,12 @@ angular.module('fAct.app', [
     invoice: {
       payment: "Chèque ou virement",
       footer: "En cas de retard de paiement, seront exigibles, conformément à l'article L 441­6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros."
+    },
+    accountingPeriods: [
+      { name: '2013/2014', start: new Date(2013, 1, 1), stop: new Date(2014, 8, 30) }
+    ],
+    planning: {
+      users: ['nicolas', 'lilian', 'thomas']
     }
   }
 })
