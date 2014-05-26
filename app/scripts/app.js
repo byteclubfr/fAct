@@ -17,7 +17,7 @@ angular.module('fAct.app', [
 .value({
   config: {
     FirebaseUrl: '@@FIREBASE_URL',
-    vats: [20, 19.6, 7, 10],
+    vats: [20, 19.6, 7, 10, 0],
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2014,
     company: {

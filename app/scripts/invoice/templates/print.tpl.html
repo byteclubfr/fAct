@@ -55,6 +55,10 @@
   </tfoot>
 </table>
 
+<div class="infoinvoice clearfix" ng-if="invoice.object.vat === 0">
+  <section>Exonération TVA, art. 261 du code général des impôts.</section>
+</div>
+
 <ul>
   <li><strong>Date de paiement : </strong>{{ invoice.object.dueDate | date }}</li>
   <li><strong>Moyen de paiement : </strong>{{ config.invoice.payment }}</li>
