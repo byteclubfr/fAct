@@ -14,7 +14,7 @@ angular.module( 'fAct.planning', [
     ;
 })
 
-.controller( 'PlanningCtrl', function PlanningCtrl( $scope, $routeParams, Fire, Flash, config ) {
+.controller( 'PlanningCtrl', function PlanningCtrl( $scope, $routeParams, $timeout, Fire, Flash, config ) {
 
   var date = moment($routeParams.date || moment().format('YYYY-MM-DD'));
   date = date.day(date.day() ? 1 : -6); // sunday = 0
@@ -30,6 +30,26 @@ angular.module( 'fAct.planning', [
   }
 
   $scope.tasks = {};
+  Fire.live('planning', 'tasks', function (tasks) {
+    $timeout(function() {
+      _.forEach(config.planning.users || [], function (user) {
+        if (!tasks.object[user]) tasks.object[user] = {};
+      });
+      $scope.tasks = tasks;
+    });
+  }, function () {
+    var tasks = {};
+    _.forEach(config.planning.users || [], function(user) { tasks[user] = {} });
+    $scope.tasks = Fire.create('planning', tasks, 'tasks');
+  });
+
+  $scope.projectsEvents = {
+    // '2014-04-14': {
+    //   'myreport@centile': 'Ceci est un évenement'
+    // }
+  }
+
+/*
   Fire.get('planning', 'tasks').then(function(tasks) {
     _.forEach(config.planning.users || [], function (user) {
       if (!tasks.object[user]) tasks.object[user] = {};
@@ -40,6 +60,7 @@ angular.module( 'fAct.planning', [
     _.forEach(config.planning.users || [], function(user) { tasks[user] = {} });
     $scope.tasks = Fire.create('planning', tasks, 'tasks');
   });
+*/
 
   $scope.projects = {};
   Fire.get('planning', 'projects').then(function(projects) {
@@ -51,6 +72,19 @@ angular.module( 'fAct.planning', [
         first = false;
       }
     }, true);
+
+    _.forEach($scope.projects.object, function (proj, projname) {
+      if (proj.events) {
+        _.forEach(proj.events, function (evt, date) {
+          if (!$scope.projectsEvents[date]) {
+            $scope.projectsEvents[date] = {};
+          }
+          $scope.projectsEvents[date][projname] = evt;
+        });
+      }
+    });
+
+
   });
 
   $scope.selected = {};
@@ -61,10 +95,15 @@ angular.module( 'fAct.planning', [
     if (!$scope.selected[key]) delete $scope.selected[key];
   };
 
+  $scope.projectColor = function (name) {
+    if ($scope.projects && $scope.projects.object && $scope.projects.object[name] && $scope.projects.object[name].color) return $scope.projects.object[name].color;
+    return '#FF0000';
+  };
+
   $scope.color = function (user, date, period) {
     var task = $scope.tasks.object[user][date + period];
     if (!task) return;
-    if (task[0] === ':') return $scope.projects.object[task.replace(/^:/, '')].color;
+    if (task[0] === ':') return $scope.projectColor(task.replace(/^:/, ''));
     return 'transparent';
   };
 

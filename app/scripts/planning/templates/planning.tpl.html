@@ -14,11 +14,17 @@
         </div>
       </div>
 
-        <table class="table table-condensed table-hover" ng-repeat="dates in range">
+        <table class="table table-condensed table-hover" ng-repeat="dates in range" style="margin-bottom:20px;">
           <thead>
             <tr>
               <th></th>
-              <th ng-repeat="date in dates" style="width:12%;font-size:10px;">{{ date | date:'EEEE d' }}</th>
+              <th ng-repeat="date in dates" style="width:12%;font-size:10px;">
+                {{ date | date:'EEEE d' }}
+                <span ng-repeat="(event, eventinfo) in projectsEvents[date]"
+                  class="glyphicon glyphicon-flag"
+                  ng-style="{color: projectColor(event)}"
+                  popover="{{ eventinfo }}" popover-trigger="mouseenter"></span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -52,11 +58,11 @@
   <div class="col-md-3">
 
     <div class="panel panel-default" ng-hide="selected | empty">
-      <div class="panel-body" ng-click="addAndUpdate(entryForm)">
-        <form role="form" name="entryForm" novalidate>
+      <div class="panel-body">
+        <form role="form" name="entryForm" novalidate ng-submit="addAndUpdate(entryForm)">
           <div class="form-group">
             <label for="entry">Autre / nouveau projet</label>
-            <input type="text" class="form-control" id="entry" name="entry" ng-model="entry" required />
+            <input type="text" class="form-control" id="entry" name="entry" ng-model="entry" required ng-pattern="/^[^#/\.\$\[\]]*$/" />
           </div>
           <button type="submit" class="btn btn-primary">Enregistrer</button>
           <button type="button" class="btn btn-default" ng-click="updateSelected()"><span class="glyphicon glyphicon-remove"></span> Vider</button>
@@ -65,12 +71,41 @@
     </div>
 
     <ul class="list-group">
-      <li ng-repeat="(project, projectproperties) in projects.object" class="list-group-item" style="cursor:pointer;" ng-click="updateSelected(':' + project)">
-        <span class="badge" colorpicker-position="left" colorpicker ng-model="projectproperties.color" stop-event="click" ng-style="{'background-color': projectproperties.color}">
-          <span class="glyphicon glyphicon-cog"></span>
+      <li ng-repeat="(project, projectproperties) in projects.object" class="list-group-item" ng-show="!projectproperties.hide || configure.show" style="cursor:pointer;" ng-click="updateSelected(':' + project)">
+        <span ng-show="configure.show" class="badge" ng-click="configure.project = (configure.project==project) ? null : project;" stop-event="click" style="background-color:#fff;color:#888;" >
+          <span class="glyphicon glyphicon-wrench"></span>
+        </span>
+        <span class="badge" ng-style="{'background-color': projectproperties.color}">
+          <span class="glyphicon glyphicon-ok"></span>
         </span>
         {{ project }}
+        <div ng-show="configure.show && configure.project==project" style="margin-top:10px;border-top:1px dashed #ddd;">
+
+          <div class="form-group">
+            <label>Afficher / cacher : </label>
+            <span class="badge" ng-click="projectproperties.hide = !projectproperties.hide" stop-event="click" style="background-color:#fff;color:#888;" ><span class="glyphicon" ng-class="{'glyphicon-eye-open': !projectproperties.hide, 'glyphicon-eye-close': projectproperties.hide}"></span></span>
+          </div>
+
+          <div class="form-group">
+            <label>Couleur : </label>
+            <span class="badge" colorpicker-position="left" colorpicker ng-model="projectproperties.color" stop-event="click" ng-style="{'background-color': projectproperties.color}">
+              <span class="glyphicon glyphicon-cog"></span>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Événements : </label>
+            <table class="table" style="font-size:.9em;">
+              <tr ng-repeat="(date, event) in projectproperties.events">
+                <td style="width:50%;">{{ date }}</td>
+                <td style="width:50%;"><input style="width:100%;font-size:.8em" type="text" class="form-control input-sm" ng-model="event"></td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
       </li>
+      <li class="list-group-item clearfix"><button class="pull-right btn btn-default btn-xs" ng-click="configure.show=!configure.show"><span class="glyphicon glyphicon-wrench"></span></button></li>
     </ul>
 
   </div>

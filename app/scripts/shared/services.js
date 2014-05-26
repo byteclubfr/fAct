@@ -167,6 +167,22 @@ angular.module('fAct.services', [
       }
     },
 
+    live: function(url, id, success, failure) {
+      getRef(url).on('value', function(datasnapshot) {
+        var child = datasnapshot.child(id);
+        if (child.val()) {
+          success({
+            "id": child.name(),
+            "url": url,
+            "ref": child.ref(),
+            "object": extend(child.val(), url)
+          });
+        } else {
+          failure();
+        }
+      });
+    },
+
     get: function(url, id) {
       var deferred = $q.defer();
       getRef(url).on('value', function(datasnapshot) {
