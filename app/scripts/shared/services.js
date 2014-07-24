@@ -108,25 +108,32 @@ angular.module('fAct.services', [
       var deferred = $q.defer();
       var _this = this;
       _this.login().then(function(user) {
+        console.log('auth', user);
         $rootScope.user = user;
         deferred.resolve(true);
-      }, function() {
-        _this.login(true).then(function(user) {
-          $rootScope.user = user;
-          deferred.resolve(true);
-        })
+      }, function (error) {
+        console.log('????', error);
+        deferred.reject(error);
       });
       return deferred.promise;
     },
 
-    login: function(dologin) {
+    login: function(login, password) {
       var deferred = $q.defer();
+      var _this = this;
       var auth = new FirebaseSimpleLogin(getRef(), function(error, user) {
         if (error) deferred.reject(error);
         else if (user) deferred.resolve(user);
         else {
-          if (dologin) auth.login('persona');
-          else deferred.reject(null);
+          if (login && password) {
+            auth.login('password', {
+              email: login,
+              password: password
+            });
+            _this.login();
+          } else {
+            deferred.reject(null);
+          }
         }
       });
       return deferred.promise;
@@ -135,6 +142,7 @@ angular.module('fAct.services', [
     logout: function() {
       var deferred = $q.defer();
       var auth = new FirebaseSimpleLogin(getRef(), function(error) {
+        auth.logout();
         if (error) deferred.reject(error);
         else {
           auth.logout();

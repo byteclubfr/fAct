@@ -48,19 +48,26 @@ angular.module('fAct.app', [
 
   $scope.isActive = function(route) {
     return route === $location.path().split('/').slice(0, 2).join('/');
-  }
+  };
 
   $scope.$on('$routeChangeStart', function(next, current) {
     Flash.pop();
   });
 
+  $scope.login = function(form) {
+    if (form.$valid) {
+      console.log($scope.attempt);
+      Fire.login($scope.attempt.email, $scope.attempt.password).then(function (user) {
+        $rootScope.user = user;
+      });
+    }
+  };
+
   $scope.logout = function() {
-    Fire.logout().then(function() {
+    Fire.logout().then(function () {
       $rootScope.user = null;
-    }, function(error) {
-      alert(error);
     });
-  }
+  };
 
   $scope.sorter = Fire.sorter;
   $scope.finder = Fire.finder;
