@@ -144,10 +144,7 @@ angular.module('fAct.services', [
       var auth = new FirebaseSimpleLogin(getRef(), function(error) {
         auth.logout();
         if (error) deferred.reject(error);
-        else {
-          auth.logout();
-          deferred.resolve(null);
-        }
+        else deferred.resolve(null);
       });
       return deferred.promise;
     },
