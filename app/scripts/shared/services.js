@@ -104,6 +104,8 @@ angular.module('fAct.services', [
 
   var service = {
 
+    _ignoreNextLogin: false,
+
     auth: function() {
       var deferred = $q.defer();
       this.login(true).then(function(user) {
@@ -119,6 +121,13 @@ angular.module('fAct.services', [
       var deferred = $q.defer();
       var _this = this;
       var auth = new FirebaseSimpleLogin(getRef(), function(error, user) {
+        if (_this._ignoreNextLogin) {
+          dologin = false;
+          _this._ignoreNextLogin = false;
+        }
+        if (config.debug) {
+          console.log("FirebaseSimpleLogin", error, user);
+        }
         if (error) deferred.reject(error);
         else if (user) deferred.resolve(user);
         else {
@@ -134,6 +143,7 @@ angular.module('fAct.services', [
 
     logout: function() {
       var deferred = $q.defer();
+      this._ignoreNextLogin = true;
       var auth = new FirebaseSimpleLogin(getRef(), function(error) {
         auth.logout();
         if (error) deferred.reject(error);

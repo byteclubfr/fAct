@@ -39,7 +39,8 @@ angular.module('fAct.app', [
     },
     loginMessage: "Veuillez vous identifier pour accéder à cette application\n(cliquer sur OK pour continuer)",
     // Note: find your github ID here: http://caius.github.io/github_id
-    loginProvider: "github"
+    loginProvider: "github",
+    debug: false
   }
 })
 
@@ -61,6 +62,11 @@ angular.module('fAct.app', [
     Fire.logout().then(function () {
       $rootScope.user = null;
     });
+  };
+
+  $scope.login = function() {
+    // TODO call Fire.auth() + reload "the Angular way" (if there is one)
+    document.location.reload();
   };
 
   $scope.sorter = Fire.sorter;
