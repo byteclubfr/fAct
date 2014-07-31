@@ -123,7 +123,7 @@ angular.module('fAct.services', [
         else if (user) deferred.resolve(user);
         else {
           if (dologin) {
-            if (confirm(config.loginMessage)) auth.login('persona');
+            if (confirm(config.loginMessage)) auth.login(config.loginProvider);
             else deferred.reject(null);
           }
           else deferred.reject(null);
