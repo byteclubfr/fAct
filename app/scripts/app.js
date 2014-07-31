@@ -63,6 +63,11 @@ angular.module('fAct.app', [
     });
   };
 
+  $scope.login = function() {
+    // TODO call Fire.auth() + reload "the Angular way" (if there is one)
+    document.location.reload();
+  };
+
   $scope.sorter = Fire.sorter;
   $scope.finder = Fire.finder;
 
