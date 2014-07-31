@@ -119,6 +119,9 @@ angular.module('fAct.services', [
       var deferred = $q.defer();
       var _this = this;
       var auth = new FirebaseSimpleLogin(getRef(), function(error, user) {
+        if (config.debug) {
+          console.log("FirebaseSimpleLogin", error, user);
+        }
         if (error) deferred.reject(error);
         else if (user) deferred.resolve(user);
         else {

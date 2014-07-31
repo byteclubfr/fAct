@@ -38,7 +38,8 @@ angular.module('fAct.app', [
       users: ['nicolas', 'lilian', 'thomas']
     },
     loginMessage: "Veuillez vous identifier pour accéder à cette application\n(cliquer sur OK pour continuer)",
-    loginProvider: "google"
+    loginProvider: "google",
+    debug: false
   }
 })
 
