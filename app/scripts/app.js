@@ -54,15 +54,6 @@ angular.module('fAct.app', [
     Flash.pop();
   });
 
-  $scope.login = function(form) {
-    if (form.$valid) {
-      console.log($scope.attempt);
-      Fire.login($scope.attempt.email, $scope.attempt.password).then(function (user) {
-        $rootScope.user = user;
-      });
-    }
-  };
-
   $scope.logout = function() {
     Fire.logout().then(function () {
       $rootScope.user = null;
