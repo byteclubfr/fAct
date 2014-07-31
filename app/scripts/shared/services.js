@@ -122,7 +122,10 @@ angular.module('fAct.services', [
         if (error) deferred.reject(error);
         else if (user) deferred.resolve(user);
         else {
-          if (dologin) auth.login('persona');
+          if (dologin) {
+            if (confirm(config.loginMessage)) auth.login('persona');
+            else deferred.reject(null);
+          }
           else deferred.reject(null);
         }
       });
