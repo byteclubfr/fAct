@@ -110,17 +110,15 @@ angular.module('fAct.services', [
       _this.login().then(function(user) {
         $rootScope.user = user;
         deferred.resolve(true);
-      }, function() {
-        _this.login(true).then(function(user) {
-          $rootScope.user = user;
-          deferred.resolve(true);
-        })
+      }, function (error) {
+        deferred.reject(error);
       });
       return deferred.promise;
     },
 
     login: function(dologin) {
       var deferred = $q.defer();
+      var _this = this;
       var auth = new FirebaseSimpleLogin(getRef(), function(error, user) {
         if (error) deferred.reject(error);
         else if (user) deferred.resolve(user);
@@ -135,6 +133,7 @@ angular.module('fAct.services', [
     logout: function() {
       var deferred = $q.defer();
       var auth = new FirebaseSimpleLogin(getRef(), function(error) {
+        auth.logout();
         if (error) deferred.reject(error);
         else {
           auth.logout();

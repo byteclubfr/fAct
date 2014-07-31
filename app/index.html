@@ -33,7 +33,7 @@
         <a class="navbar-brand" href="#">fAct</a>
       </div>
       <div class="navbar-collapse collapse">
-        <ul  ng-show="user" class="nav navbar-nav navbar-right">
+        <ul ng-show="user" class="nav navbar-nav navbar-right">
           <li ng-class="{active:isActive('/')}"><a href="#">Tableau de bord</a></li>
           <li ng-class="{active:isActive('/invoices')}"><a href="#/invoices">Factures</a></li>
           <li ng-class="{active:isActive('/clients')}"><a href="#/clients">Clients</a></li>
@@ -46,8 +46,8 @@
 
   <div ng-show="user" class="container" ng-view></div>
 
-<script src='https://cdn.firebase.com/v0/firebase.js'></script>
-<script src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+<script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+<script src="https://cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
 <script type="text/javascript" src="https://login.persona.org/include.js"></script>
 
 <!-- build:js({.tmp,app}) scripts/libs.js -->
