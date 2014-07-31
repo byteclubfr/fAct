@@ -106,8 +106,7 @@ angular.module('fAct.services', [
 
     auth: function() {
       var deferred = $q.defer();
-      var _this = this;
-      _this.login().then(function(user) {
+      this.login(true).then(function(user) {
         $rootScope.user = user;
         deferred.resolve(true);
       }, function (error) {
