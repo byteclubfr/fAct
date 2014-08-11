@@ -23,7 +23,8 @@ angular.module('fAct.services', [
       },
 
       getATI: function() {
-        return this.getPrice() * (1 + this.vat / 100);
+        var ati = this.getPrice() * (1 + this.vat / 100);
+        return ati.toFixed(2);
       },
 
       getPaid: function() {
