@@ -21,10 +21,10 @@ angular.module('fAct.app', [
     dueDate: function(date) { return moment(date).add('days', 30).valueOf(); },
     financialYear: 2014,
     company: {
-      address: '<strong>LMTM</strong>\n2 quai André Rhuys\n44200 Nantes\n<em>Téléphone</em> 06 14 66 76 41\n<em>Email</em> contact@lmtm.fr',
+      address: '<strong>LMTM</strong>\n5 bd Vincent Gâche\n44200 Nantes\n<em>Téléphone</em> 06 14 66 76 41\n<em>Email</em> contact@lmtm.fr',
       logo: 'images/lmtm.png',
       baseline: 'Nous mettons vos idées en applications !',
-      identity: '&nbsp;\nSARL au capital social de 5 000 € \nRCS NANTES B 791 143 258\nN° TVA FR30791143258',
+      identity: '&nbsp;\nSARL au capital social de 7 500 € \nRCS NANTES B 791 143 258\nN° TVA FR30791143258',
       bank: '&nbsp;\n<em>Banque</em> CIC NANTES VOLTAIRE\n<em>RIB</em> 30047 14010 00020700501 90\n<em>IBAN</em> FR76 3004 7140 1000 0207 0050 190\n<em>BIC</em> CMCIFRPP'
     },
     invoice: {
@@ -32,7 +32,8 @@ angular.module('fAct.app', [
       footer: "En cas de retard de paiement, seront exigibles, conformément à l'article L 441­6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros."
     },
     accountingPeriods: [
-      { name: '2013/2014', start: new Date(2013, 1, 1), stop: new Date(2014, 8, 30) }
+      { name: '2013/2014', start: new Date(2013, 1, 1), stop: new Date(2014, 7, 31) },
+      { name: '2014/2015', start: new Date(2014, 8, 1), stop: new Date(2015, 7, 31) }
     ],
     planning: {
       users: ['nicolas', 'lilian', 'thomas']
