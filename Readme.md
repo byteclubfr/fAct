@@ -1,5 +1,7 @@
 ## Installation
 
+modif master
+
 * Clone this repository
 * npm install -g grunt-cli
 * npm install -g bower
