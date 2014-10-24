@@ -1,10 +1,7 @@
 ## Installation
 
-<<<<<<< HEAD
 modif master
-=======
 test ungit
->>>>>>> ungit
 
 * Clone this repository
 * npm install -g grunt-cli
