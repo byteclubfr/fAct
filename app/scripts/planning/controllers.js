@@ -21,7 +21,7 @@ angular.module( 'fAct.planning', [
   $scope.range = [];
   $scope.lastweek = date.clone().day(-6).format('YYYY-MM-DD');
   $scope.nextweek = date.clone().day(8).format('YYYY-MM-DD');
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 6; i++) {
     $scope.range.push([]);
     for (var j = 0; j < 7; j++) {
       $scope.range[i].push(date.format('YYYY-MM-DD'));
